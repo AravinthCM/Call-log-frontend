@@ -67,8 +67,9 @@
   padding: 20px;
   font-family: 'Arial', sans-serif;
   background-color: #f5f5f5;
+  overflow-y: auto; /* Add this line */
+  height: 100vh; /* Add this line */
 }
-
 .top-bar h1 {
   font-size: 24px;
   color: #333;
@@ -90,16 +91,19 @@
 .dashboard-container {
   display: flex;
   height: 100vh;
+  overflow: hidden; /* Add this line */
 }
 
 .sidebar {
   width: 200px;
-  background-color: #fff; /* Changed to white */
+  background-color: #fff;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #ddd; /* Added line separating the sidebar and main content */
-  font-family: 'Arial', sans-serif; /* Changed font */
+  border-right: 1px solid #ddd;
+  font-family: 'Arial', sans-serif;
+  overflow-y: auto; /* Add this line */
+  height: 100vh; /* Add this line */
 }
 
 .logo {
@@ -136,10 +140,11 @@
 
 .nav-item:hover {
   background-color: #ddd;
+  border-radius: 5px;
 }
 
 .sidebar-bottom {
-  margin-top: auto;
+  margin-bottom: 5%;
 }
 
 .bottom-item {
@@ -292,7 +297,7 @@
   color: #333;
 }
 .chart-container {
-  width: 80%; /* Reduced width of the pie chart */
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -325,3 +330,7 @@
   color: #666;
 }
 
+.table{
+  margin-top: 20px;
+  margin-bottom: 50px;
+}

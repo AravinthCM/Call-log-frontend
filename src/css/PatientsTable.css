@@ -1,49 +1,50 @@
 .patients-table-container {
-    margin: 20px;
+    margin: 0px;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .patients-table {
     width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .patients-table th, .patients-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-collapse: separate;
+    border-spacing: 0 8px;
   }
   
   .patients-table th {
-    background-color: #f4f4f4;
+    background-color: #f8f9fa;
+    color: #495057;
     font-weight: bold;
-    color: #333;
-  }
-  
-  .patients-table tr:hover {
-    background-color: #f1f1f1;
+    letter-spacing: 0.5px;
+    padding: 15px;
+    text-align: left;
   }
   
   .patients-table td {
-    font-size: 14px;
+    padding: 15px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
   }
   
-  .patients-table th, .patients-table td {
-    transition: background-color 0.3s ease;
+  .patients-table tr:nth-child(even) td {
+    background-color: #f1f3f5;
   }
   
   .patients-table tr:hover td {
-    background-color: #e9ecef;
+    background-color: #b1c4c5;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .call-status-icon {
+    font-size: 1em;
   }
   
   .call-pending-icon {
-    color: red;
+    color: #ff0000;
   }
   
   .call-done-icon {
-    color: green;
+    color: #28a745;
   }
-  

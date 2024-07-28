@@ -117,6 +117,7 @@ const AdminDashboard = () => {
           </a>
         </div>
       </div>
+      
       <div className="main-content">
         <div className="header">
           <div className="top-bar">
@@ -189,7 +190,9 @@ const AdminDashboard = () => {
           </div>
         </div>
         <div className="card full-width-card"></div>
+        <div className="table" >
           <PatientsTable />
+        </div>
       </div>
       
     </div>
