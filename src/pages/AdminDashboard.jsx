@@ -1,22 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../css/AdminDashboard.css';
 import {
   FaHome, FaChartLine, FaFileAlt, FaCog, FaUser, FaQuestionCircle, FaSignOutAlt,
   FaCalendarAlt, FaUserInjured, FaUserPlus, FaFileMedical
 } from 'react-icons/fa';
+import { Doughnut } from 'react-chartjs-2';
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+
+Chart.register(ArcElement, Tooltip, Legend);
 
 const AdminDashboard = () => {
+  const [dashboardData, setDashboardData] = useState({
+    totalPatients: 0,
+    chronicPatients: 0,
+    acutePatients: 0,
+    newPatientsToday: 0,
+    pendingCallsFromApp: 0,
+    pendingMedicalRecords: 0
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get('http://localhost:5000/api/dashboard');
+        console.log('Dashboard data received:', response.data);
+        setDashboardData(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+        setError('Failed to fetch dashboard data. Please try again later.');
+        setIsLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
   const today = new Date();
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
   const date = today.toLocaleDateString('en-US', options);
 
-  // Placeholder data - replace with actual data from your backend
-  const totalPatients = 100;
-  const chronicPatients = 60;
-  const acutePatients = 40;
-  const newPatientsToday = 5;
-  const pendingCallsFromApp = 3;
-  const pendingMedicalRecords = 7;
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  const pieData = {
+    labels: ['Chronic Patients', 'Acute Patients'],
+    datasets: [
+      {
+        data: [dashboardData.chronicPatients, dashboardData.acutePatients],
+        backgroundColor: ['#4a90e2', '#50c878'],
+        hoverBackgroundColor: ['#357ABD', '#3CA454'],
+        borderWidth: 0,
+        cutout: '60%',
+        circumference: 180,
+      }
+    ]
+  };
+
+  const pieOptions = {
+    rotation: -90,
+    circumference: 180,
+    plugins: {
+      legend: {
+        display: false,
+      }
+    }
+  };
 
   return (
     <div className="dashboard-container">
@@ -75,24 +133,47 @@ const AdminDashboard = () => {
         </div>
         <div className="card-container">
           <div className="card small-card">
-            <div className="card-icon">
-              <FaUserInjured size={24} color="#4a90e2" />
+
+            <div className='dummy'>
+                <div className="card-header">
+                  <div className="card-icon">
+                    <FaUserInjured size={24} color="#4a90e2" />
+                  </div>
+                  <h2>Total Patients</h2>
+                  <div className="card-text">
+                    <p className="card-number">{dashboardData.totalPatients}</p>
+                    <div className="card-details">
+                      <p>Chronic: {dashboardData.chronicPatients}</p>
+                      <p>Acute: {dashboardData.acutePatients}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="card-content">
+                  <div className="chart-container">
+                    <Doughnut data={pieData} options={pieOptions} />
+                    <div className="legend-container">
+                      <div className="legend-item">
+                        <div className="legend-color" style={{ backgroundColor: '#4a90e2' }}></div>
+                        <span className="legend-text">Chronic</span>
+                      </div>
+                      <div className="legend-item">
+                        <div className="legend-color" style={{ backgroundColor: '#50c878' }}></div>
+                        <span className="legend-text">Acute</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
-            <h2>Total Patients</h2>
-            <p className="card-number">{totalPatients}</p>
-            <div className="card-details">
-              <p>Chronic: {chronicPatients}</p>
-              <p>Acute: {acutePatients}</p>
-            </div>
+
           </div>
           <div className="card small-card">
             <div className="card-icon">
               <FaUserPlus size={24} color="#50c878" />
             </div>
             <h2>New Patients Today</h2>
-            <p className="card-number">{newPatientsToday}</p>
+            <p className="card-number">{dashboardData.newPatientsToday}</p>
             <div className="card-details">
-              <p>Pending Calls: {pendingCallsFromApp}</p>
+              <p>Pending Calls: {dashboardData.pendingCallsFromApp}</p>
             </div>
           </div>
           <div className="card small-card">
@@ -100,7 +181,7 @@ const AdminDashboard = () => {
               <FaFileMedical size={24} color="#f39c12" />
             </div>
             <h2>Pending Records</h2>
-            <p className="card-number">{pendingMedicalRecords}</p>
+            <p className="card-number">{dashboardData.pendingMedicalRecords}</p>
             <div className="card-details">
               <p>Medical Records to Review</p>
             </div>
