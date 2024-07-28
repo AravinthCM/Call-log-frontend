@@ -1,0 +1,49 @@
+.patients-table-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .patients-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .patients-table th, .patients-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .patients-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .patients-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .patients-table td {
+    font-size: 14px;
+  }
+  
+  .patients-table th, .patients-table td {
+    transition: background-color 0.3s ease;
+  }
+  
+  .patients-table tr:hover td {
+    background-color: #e9ecef;
+  }
+  
+  .call-pending-icon {
+    color: red;
+  }
+  
+  .call-done-icon {
+    color: green;
+  }
+  

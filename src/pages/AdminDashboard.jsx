@@ -7,6 +7,7 @@ import {
 } from 'react-icons/fa';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+import PatientsTable from '../components/PatientsTable';
 
 Chart.register(ArcElement, Tooltip, Legend);
 
@@ -188,7 +189,9 @@ const AdminDashboard = () => {
           </div>
         </div>
         <div className="card full-width-card"></div>
+          <PatientsTable />
       </div>
+      
     </div>
   );
 };
